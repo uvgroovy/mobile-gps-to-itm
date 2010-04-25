@@ -2,6 +2,7 @@ MIDlet-Version: 1.0.1
 MIDlet-Vendor: Anibo!
 MIDlet-Jar-URL: GPS_2_UTM.jar
 MicroEdition-Configuration: CLDC-1.1
-MIDlet-1: myMIDlet,,myMIDlet
+MIDlet-1: GPS2ITM,,myMIDlet
 MicroEdition-Profile: MIDP-2.1
+MIDlet-Permissions: javax.microedition.location.Location,javax.microedition.location.ProximityListener
 MIDlet-Name: GPS 2 UTM
