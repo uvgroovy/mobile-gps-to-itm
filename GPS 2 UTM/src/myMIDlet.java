@@ -46,6 +46,9 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 	}
 
 	protected void startApp() throws MIDletStateChangeException {
+
+		display = Display.getDisplay(this);
+		display.setCurrent(form);
 		
 
 	}
@@ -57,8 +60,6 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 
 			form.append(Convertor.numbersToLatLon(ortalLatlon));
 
-			display = Display.getDisplay(this);
-			display.setCurrent(form);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
