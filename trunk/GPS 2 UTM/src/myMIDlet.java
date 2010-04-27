@@ -47,6 +47,7 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 
 	protected void startApp() throws MIDletStateChangeException {
 
+		// TODO should this be here, or in the ctor ?
 		display = Display.getDisplay(this);
 		display.setCurrent(form);
 		
