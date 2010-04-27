@@ -1,8 +1,0 @@
-MIDlet-1: myMIDlet,,myMIDlet
-MIDlet-Jar-Size: 10817
-MIDlet-Jar-URL: GPS_2_UTM.jar
-MIDlet-Name: GPS 2 UTM
-MIDlet-Vendor: Anibo!
-MIDlet-Version: 1.0.1
-MicroEdition-Configuration: CLDC-1.1
-MicroEdition-Profile: MIDP-2.1
