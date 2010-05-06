@@ -1,0 +1,7 @@
+#summary One-sentence summary of this page.
+
+= טלפונים שבהם התוכנה נבדקה ועובדת =
+
+nokia 5800
+nokia n85
+nokia e72
