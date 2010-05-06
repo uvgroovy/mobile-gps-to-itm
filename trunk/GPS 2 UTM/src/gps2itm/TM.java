@@ -1,12 +1,8 @@
 package gps2itm;
 
 public class TM {
-	private Ellipsoid ellipsoid;
 	private double e0;
 	private double n0;
-	private double f0;
-	private double lat0;
-	private double lng0;
 	private double radlat0;
 	private double radlng0;
 	private double bf0;
@@ -37,18 +33,13 @@ public class TM {
 		// latitude (lat0) and longitude (lng0) of false origin in decimal
 		// degrees.
 
-		this.ellipsoid = ellipsoid;
 		this.e0 = e0;
 		this.n0 = n0;
-		this.f0 = f0;
-		this.lat0 = lat0;
-		this.lng0 = lng0;
-
 		this.radlat0 = lat0 * (Math.PI / 180);
 		this.radlng0 = lng0 * (Math.PI / 180);
 
-		this.af0 = ellipsoid.a * f0;
-		this.bf0 = ellipsoid.b * f0;
+		this.af0 = ellipsoid.getA()* f0;
+		this.bf0 = ellipsoid.getB() * f0;
 		this.e2 = (MathUtilies.pow(this.af0, 2) - MathUtilies.pow(this.bf0, 2))
 				/ MathUtilies.pow(this.af0, 2);
 		this.n = (this.af0 - this.bf0) / (this.af0 + this.bf0);
@@ -65,8 +56,8 @@ public class TM {
 	 */
 	public Point project(LatLon latlng) {
 		// Convert angle measures to radians
-		double RadPHI = latlng.lat * (Math.PI / 180);
-		double RadLAM = latlng.lng * (Math.PI / 180);
+		double RadPHI = latlng.getLat() * (Math.PI / 180);
+		double RadLAM = latlng.getLng() * (Math.PI / 180);
 		double nu = this.af0
 				/ (Math.sqrt(1 - (this.e2 * MathUtilies
 						.pow(Math.sin(RadPHI), 2))));
@@ -158,10 +149,10 @@ public class TM {
 	     //Input: - _
 	     
 	     //Compute Et
-	     double Et = point.x - this.e0;
+	     double Et = point.getX() - this.e0;
 	     
 	     //Compute initial value for latitude (PHI) in radians
-	     double PHId = this.InitialLat(point.y);
+	     double PHId = this.InitialLat(point.getY());
 	     
 	     //Compute nu, rho and eta2 using value for PHId
 	     double nu = this.af0 / (Math.sqrt(1 - (this.e2 * (MathUtilies.pow(Math.sin(PHId), 2)))));

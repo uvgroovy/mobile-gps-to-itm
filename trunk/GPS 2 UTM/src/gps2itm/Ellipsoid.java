@@ -1,17 +1,25 @@
 package gps2itm;
 
 
-/**
- * Creates a new Ellipsoid.
- * for more info see <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">http://en.wikipedia.org/wiki/Reference_ellipsoid</a>
- *
- * @param a length of the equatorial radius (the semi-major axis) in meters
- * @param b length of the polar radius (the semi-minor axis) in meters
- */
 public class Ellipsoid {
-	double a,b , e2;
+	private double a,b , e2;
 	
 
+	public double getA() {
+		return a;
+	}
+
+	public double getB() {
+		return b;
+	}
+
+	/**
+	 * Creates a new Ellipsoid.
+	 * for more info see <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">http://en.wikipedia.org/wiki/Reference_ellipsoid</a>
+	 *
+	 * @param a length of the equatorial radius (the semi-major axis) in meters
+	 * @param b length of the polar radius (the semi-minor axis) in meters
+	 */
 	public Ellipsoid(double a, double b) {
 		super();
 		this.a = a;
@@ -28,15 +36,15 @@ public class Ellipsoid {
 	public LatLon pointToLatLng (Point point)
 	{
 
-	     double RootXYSqr = Math.sqrt( (point.x*point.x) + (point.y*point.y) );
+	     double RootXYSqr = Math.sqrt( MathUtilies.pow(point.getX(), 2) + MathUtilies.pow(point.getY(), 2) );
 	     
-	     double radlat1 = aTan2 (point.z, (RootXYSqr * (1 - this.e2)));
+	     double radlat1 = aTan2 (point.getZ(), (RootXYSqr * (1 - this.e2)));
 	     double radlat2;
 	     do {
 	    	 double sinRadlat1 = Math.sin(radlat1);
 	         double V = this.a / (Math.sqrt(1 - (this.e2 * (sinRadlat1 *sinRadlat1))));
 	         
-	          radlat2 = aTan2((point.z + (this.e2 * V * (sinRadlat1))), RootXYSqr);
+	          radlat2 = aTan2((point.getZ() + (this.e2 * V * (sinRadlat1))), RootXYSqr);
 	         if (Math.abs(radlat1 - radlat2) > 0.000000001) {
 	             radlat1 = radlat2;
 	         }
@@ -47,7 +55,7 @@ public class Ellipsoid {
 	     while (true);
 	     
 	     double lat = radlat2 * (180 / Math.PI);
-	     double lng = aTan2(point.y, point.x) * (180 / Math.PI);
+	     double lng = aTan2(point.getY(), point.getX()) * (180 / Math.PI);
 	     
 	     return new LatLon(lat, lng);
 	}
@@ -58,7 +66,7 @@ public class Ellipsoid {
 	 * @param x
 	 * @return
 	 */
-	 static public double aTan2(double y, double x) {
+	 static private double aTan2(double y, double x) {
 		return mMath.atan2(y, x);
 	}
 	
@@ -71,16 +79,16 @@ public class Ellipsoid {
 	  */	
 	public Point latLngToPoint(LatLon latlng )
 	{
-			 double radlat = latlng.lat * (Math.PI / 180);
-			 double radlng = latlng.lng * (Math.PI / 180);
+			 double radlat = latlng.getLat() * (Math.PI / 180);
+			 double radlng = latlng.getLng() * (Math.PI / 180);
 		     
 		     // Compute nu
 			 double V = this.a / (Math.sqrt(1 - (this.e2 * ( (Math.sin(radlat)* Math.sin(radlat))))));
 		     
 		     // Compute XYZ
-			 double x = (V + latlng.alt) * (Math.cos(radlat)) * (Math.cos(radlng));
-			 double y = (V + latlng.alt) * (Math.cos(radlat)) * (Math.sin(radlng));
-			 double z = ((V * (1 - this.e2)) + latlng.alt) * (Math.sin(radlat));
+			 double x = (V + latlng.getAlt()) * (Math.cos(radlat)) * (Math.cos(radlng));
+			 double y = (V + latlng.getAlt()) * (Math.cos(radlat)) * (Math.sin(radlng));
+			 double z = ((V * (1 - this.e2)) + latlng.getAlt()) * (Math.sin(radlat));
 		     
 		     return new Point(x, y, z);
 		

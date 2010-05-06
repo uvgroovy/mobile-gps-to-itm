@@ -1,6 +1,6 @@
 MIDlet-1: GPS2ITM,,myMIDlet
 MIDlet-Icon: icon.png
-MIDlet-Jar-Size: 13170
+MIDlet-Jar-Size: 13287
 MIDlet-Jar-URL: GPS_2_ITM.jar
 MIDlet-Name: GPS 2 ITM
 MIDlet-Permissions: javax.microedition.location.Location,javax.microedition.location.ProximityListener

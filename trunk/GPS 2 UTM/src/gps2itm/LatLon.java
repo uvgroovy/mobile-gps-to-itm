@@ -1,9 +1,22 @@
 package gps2itm;
 
 public class LatLon {
-	double lat;
-	double lng;
-	int alt;
+	private double lat;
+
+	private double lng;
+	private int alt;
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public int getAlt() {
+		return alt;
+	}
 
 	/**
 	 * Creates a new LatLng.
