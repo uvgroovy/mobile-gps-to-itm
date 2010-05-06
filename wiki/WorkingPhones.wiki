@@ -2,6 +2,6 @@
 
 = טלפונים שבהם התוכנה נבדקה ועובדת =
 
-nokia 5800
-nokia n85
-nokia e72
+* nokia 5800
+* nokia n85
+* nokia e72
