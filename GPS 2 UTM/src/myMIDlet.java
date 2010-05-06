@@ -78,7 +78,7 @@ public class myMIDlet extends MIDlet implements CommandListener,
 		LatLon ortalLatlon;
 		try {
 			ortalLatlon = getCoordinates(location);
-			String result = Convertor.numbersToLatLon(ortalLatlon);
+			String result = Convertor.convertGpsToITM(ortalLatlon);
 			form.append(result + "\n");
 
 		} catch (Exception e) {
@@ -103,8 +103,7 @@ public class myMIDlet extends MIDlet implements CommandListener,
 			// Get coordinate information
 			double lat = c.getLatitude();
 			double lon = c.getLongitude();
-
-			// Now recenter map to given location, zoom to street level
+			
 			return (new LatLon(lat, lon));
 		}
 		throw new Exception();
@@ -133,6 +132,7 @@ public class myMIDlet extends MIDlet implements CommandListener,
 
 	public void locationUpdated(LocationProvider locationProvider,
 			Location location) {
+		// Only update if you have something valid to update.
 		if (location != null && location.isValid())
 			updateDisplay(location);
 
@@ -140,7 +140,7 @@ public class myMIDlet extends MIDlet implements CommandListener,
 
 	public void providerStateChanged(LocationProvider locationProvider,
 			int newState) {
-		// TODO Auto-generated method stub
+		// Intentionally left blank.
 
 	}
 }

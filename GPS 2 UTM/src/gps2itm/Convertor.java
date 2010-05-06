@@ -1,137 +1,6 @@
 package gps2itm;
 
-
 public class Convertor {
-	 /**
-	  * @fileOverview js-itm: a Javascript library for converting between Israel Transverse Mercator (ITM) and GPS (WGS84) coordinates.<p>
-	  * <a href="http://code.google.com/p/js-itm/">http://code.google.com/p/js-itm/</a>
-	  * @author Udi Oron (udioron at g mail dot com)
-	  * @author forked from <a href="http://www.nearby.org.uk/tests/GeoTools.html">GeoTools</a> by Paul Dixon
-	  * @copyright <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>
-	  * @version 0.1.1 ($Rev: 7 $ $Date: 2008-12-13 23:25:47 +0200 (Sat, 13 Dec 2008) $)
-	  */
-	 
-	 /**
-	  * Parent namespace for the entire library
-	  * @namespace
-	  */
-	 
-	 /**************************************************************/
-	 
-	 /**
-	  * Creates a new LatLng.
-	  * 
-	  * @class holds geographic coordinates measured in degrees.<br/>
-	  * <a href="http://en.wikipedia.org/wiki/Geographic_coordinate">http://en.wikipedia.org/wiki/Geographic_coordinate</a>
-	  *
-	  * @constructor
-	  * @param {Number} lat latitude in degrees ( http://en.wikipedia.org/wiki/Latitude )
-	  * @param {Number} lng longtitude in degrees ( http://en.wikipedia.org/wiki/Longitude )
-	  * @param {Number} alt altitude in meters above the uesd geoid surface - this was not used or tested - please keep this always 0.
-	  * @param {Number} precision number of digits after the decimal point, used in printout. see toString().
-	  */
-	 
-	 /**
-	  * Returns Latlng as string, using the defined preccision
-	  * @return {String}
-	  */
-	
-	 
-	 /**
-	  * Parses latitude and longtitude in a string into a new Latlng
-	  * @param {String} s
-	  * @return {JSITM.LatLng}
-	  */
-	
-	/*
-	 public static LatLon latlngFromString (String s) {
-		 RegExp pattern = new RegExp("^(-?\\d+(?:\\.\\d*)?)(?:(?:\\s*[:,]?\\s*)|\\s+)(-?\\d+(?:\\.\\d*)?)$", "i");
-	     boolean latlng = s.match(pattern);
-	     if (latlng) {
-	         double lat = parseFloat(latlng[1], 10);
-	         double lng = parseFloat(latlng[2], 10);
-	         return new LatLon(lat, lng);
-	     }
-	 
-	 	throw ("could not parse latlng");
-	 }
-	 */
-	 
-	 /**************************************************************/
-	 
-	 /**
-	  * Creates a new Point.
-	  * @class holds 2D/3D cartesian coordinates.
-	  * 
-	  * @constructor
-	  * @param {Number} x
-	  * @param {Number} y
-	  * @param {Number} z
-	  * @return {JSITM.Point}
-	  */
-	 
-	 
-	 
-	 /**
-	  * Returns a string containing the Point coordinates in meters
-	  * @return {String}
-	  */
-	 
-	 /**************************************************************/
-	 
-	 /**
-	  * Creates a new Translation.
-	  * <p>
-	  * (Helmert translation were depracted since they are not used in the ITM - feel free to add them back from geotools if you need them! :-) )
-	  * 
-	  * @constructor 
-	  * @param {Number} dx
-	  * @param {Number} dy
-	  * @param {Number} dz
-	  */
-
-	 /**
-	  * Return a new translated Point. (Original point kept intact)
-	  *
-	  * @param {JSITM.Point} point original point.
-	  * @return {JSITM.Point}
-	  */
-	 
-
-	 
-	 /**************************************************************/
-	 
-	 /**
-	  * Creates a new Ellipsoid.<p>
-	  * for more info see <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">http://en.wikipedia.org/wiki/Reference_ellipsoid</a>
-	  *
-	  * @constructor
-	  * @param {Number} a length of the equatorial radius (the semi-major axis) in meters
-	  * @param {Number} b length of the polar radius (the semi-minor axis) in meters
-	  */
-	     
-	 
-	 
-	 /**************************************************************/
-	 
-	 /**
-	  * Creates a new LatLng containing an angular representation of a cartesian Point on the surface of the Ellipsoid.
-	  *
-	  * @param {JSITM.Point} point
-	  * @return {JSITM.LatLng}
-	  */
-	 
-
-	
-	 
-
-	 
-
-	 
-
-	 
-	
-
 	 
 	 /** Juicy part 1 ***************************************************************************/
 	 
@@ -178,9 +47,9 @@ public class Convertor {
 	  * @example 
 	  *   JSITM.point2ItmRef(new JSITM.Point(200, 500)); // prints "200000500000"
 	  *   JSITM.point2ItmRef(new JSITM.Point(200, 500), 3); // prints "200500"
-	  * @param {JSITM.Point} point
-	  * @param {Number} precision 3=km, 4=100 meter, 5=decameter 6=meter.  optional, default is 6,
-	  * @return {String}
+	  * @param point
+	  * @param precision 3=km, 4=100 meter, 5=decameter 6=meter. 
+	  * @return the itm reference
 	  */
 	 public static String point2ItmRef (Point point,int precision)
 	 {	 
@@ -215,43 +84,6 @@ public class Convertor {
 		 return point2ItmRef(point , p);
 		 
 	 }
-	 /**
-	  * Parses an ITM reference and returns a Point object.<p>
-	  * throws an exception for invalid refernce!<p>
-	  * <p>
-	  * @example valid inputs:
-	  *  200500
-	  *  20005000
-	  *  2000000500000
-	  *  130:540
-	  *  131550:44000
-	  *  131 400
-	  *  210222 432111
-	  * 
-	  * @param {String} s
-	  * @return {JSITM.Point}
-	  */
-	 /*
-	 public static Point itmRef2Point (String s){
-	     
-	     int precision;
-	     
-	     for (precision = 6; precision >= 3; precision--) {
-	         var pattern = new RegExp("^(\\d{" + precision + "})\\s*:?\\s*(\\d{" + precision + "})$", "i")
-	         var ref = s.match(pattern);
-	         if (ref) {
-	             if (precision > 0) {
-	                 double mult = MathUtilies.pow(10, 6 - precision);
-	                 var x = parseInt(ref[1], 10) * mult;
-	                 var y = parseInt(ref[2], 10) * mult;
-	                 return new JSITM.Point(x, y);
-	             }
-	         }
-	     }
-	     
-	 	throw "Could not parse reference";
-	 }
-	 */
 	 
 	 /** Juicy part 3 ***************************************************************************/
 	 
@@ -278,53 +110,13 @@ public class Convertor {
 	 
 	 /** Juicy part 4 ***************************************************************************/
 	 
+	
 	 /**
-	  * Converts an ITM grid refernece in 6, 8, 10 or 12 digits to a GPS angular Point instace
-	  * @param {String} s
-	  * @return {JSITM.Point}
+	  * Convert GPS coordinates to ITM string
+	  * @param latLon The GPS coordinates
+	  * @return The formatted itm coordinates.
 	  */
-	 
-	 /*
-	 public static LatLon itmRef2gps (String s){   // fixed the return type from Point to LatLon 
-	 	Point point = itmRef2Point(s);
-	 	return itm2gps(point);
-	 }*/
-	 
-	 /**
-	  * Converts an ITM grid refernece in 6, 8, 10 or 12 digits to a GPS angular reference
-	  * @param {String} s
-	  * @return {String}
-	  */
-	 /*
-	 public static String itmRef2gpsRef (String s){
-	 	return itmRef2gps(s).toString();
-	 }*/
-	 
-	 /**
-	  * Converts a GPS angular reference to an ITM LatLng instance
-	  * @param {String} s
-	  * @return {JSITM.LatLng} 
-	  */
-	 
-	 /*
-	 public static Point gpsRef2itm (String s){ // fixed the return type from LatLon to Point 
-	 	LatLon latlng = latlngFromString(s);
-	 	return gps2itm(latlng);
-	 }
-	 /*
-	 
-	 /**
-	  * Converts a GPS angular reference to an ITM grid refernece in 6, 8, 10 or 12 digits
-	  * @param {String} s
-	  * @param {Number} precision 3=km, 4=100 meter, 5=decameter 6=meter. Optional.  Default value is 6=meter
-	  * @return {String} 
-	  */
-	 /*
-	 public static String gpsRef2itmRef (String s, int precision){
-	 	return point2ItmRef( gpsRef2itm(s), (( precision ==0) ? 6 :precision  )  );
-	 }
-	 */
-	 public static String numbersToLatLon (LatLon latLon)
+	 public static String convertGpsToITM (LatLon latLon)
 	 {
 		 
 		return point2ItmRef( gps2itm(latLon) );

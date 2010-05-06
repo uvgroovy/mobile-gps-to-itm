@@ -1,6 +1,13 @@
 package gps2itm;
 
 
+/**
+ * Creates a new Ellipsoid.
+ * for more info see <a href="http://en.wikipedia.org/wiki/Reference_ellipsoid">http://en.wikipedia.org/wiki/Reference_ellipsoid</a>
+ *
+ * @param a length of the equatorial radius (the semi-major axis) in meters
+ * @param b length of the polar radius (the semi-minor axis) in meters
+ */
 public class Ellipsoid {
 	double a,b , e2;
 	
@@ -11,6 +18,13 @@ public class Ellipsoid {
 		this.b = b;
 		this.e2 = ((a*a) - (b* b)) / (a*a);
 	}
+	
+	 /**
+	  * Creates a new LatLng containing an angular representation of a cartesian Point on the surface of the Ellipsoid.
+	  *
+	  * @param {JSITM.Point} point
+	  * @return {JSITM.LatLng}
+	  */
 	public LatLon pointToLatLng (Point point)
 	{
 
@@ -38,6 +52,12 @@ public class Ellipsoid {
 	     return new LatLon(lat, lng);
 	}
 
+	/**
+	 * No aTam2 in j2me. if you use j2se change this to ues the default one.
+	 * @param y
+	 * @param x
+	 * @return
+	 */
 	 static public double aTan2(double y, double x) {
 		return mMath.atan2(y, x);
 	}
