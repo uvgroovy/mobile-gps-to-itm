@@ -64,8 +64,8 @@ public class Convertor {
 	         p = 6;
 	     
 	     double div = MathUtilies.pow(10, (6 - p));
-	     int east = (int) (point.x / div) ;
-	     int north = (int) (point.y / div);
+	     int east = (int) (point.getX() / div) ;
+	     int north = (int) (point.getY() / div);
 	     	return zeropad(east, p) + ' ' + zeropad(north, p);
 	 	
 	 }

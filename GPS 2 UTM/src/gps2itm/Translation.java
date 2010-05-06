@@ -1,7 +1,7 @@
 package gps2itm;
 
 public class Translation {
-	float dx, dy, dz;
+	private double dx, dy, dz;
 
 	public String toString() {
 		return "Translation [dx=" + dx + ", dy=" + dy + ", dz=" + dz + "]";
@@ -9,14 +9,14 @@ public class Translation {
 
 	 /**
 	  * Creates a new Translation.
-	  * <p>
+	  * 
 	  * (Helmert translation were deprecated since they are not used in the ITM - feel free to add them back from geotools if you need them! :-) )
 	  * 
-	  * @param {Number} dx
-	  * @param {Number} dy
-	  * @param {Number} dz
+	  * @param  dx
+	  * @param  dy
+	  * @param  dz
 	  */
-	public Translation(float dx, float dy, float dz) {
+	public Translation(double dx, double dy, double dz) {
 		super();
 		this.dx = dx;
 		this.dy = dy;
@@ -31,7 +31,7 @@ public class Translation {
 	  */
 	public Point translate (Point point)
 	{
-	     return new Point(point.x + this.dx, point.y + this.dy, point.z + this.dz);
+	     return new Point(point.getX() + this.dx, point.getY() + this.dy, point.getZ() + this.dz);
 	 }
 	
 	 /**

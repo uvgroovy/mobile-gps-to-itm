@@ -1,9 +1,9 @@
 package gps2itm;
 
 public class Point {
-	double x;
-	double y;
-	double z;
+	private double x;
+	private double y;
+	private double z;
 
 	/**
 	 * Creates a new Point.
