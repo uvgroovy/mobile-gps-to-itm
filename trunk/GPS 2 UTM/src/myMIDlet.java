@@ -17,22 +17,22 @@ import javax.microedition.location.LocationProvider;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
-public class myMIDlet extends MIDlet implements CommandListener , LocationListener {
+public class myMIDlet extends MIDlet implements CommandListener,
+		LocationListener {
 
 	Command exit, about;
 	Display display;
 	Form form;
 	LocationProvider lp;
 	Alert alTest;
+
 	public myMIDlet() throws LocationException {
-		form = new Form("GPS to ITM");
-		initiateCommands();
-		form.setCommandListener(this);
 		Criteria cr = new Criteria();
-		cr.setHorizontalAccuracy(20);		// accurate to 20 meters horizontally
-		lp = LocationProvider.getInstance(cr);		// Now get an instance of the provider
-		lp.setLocationListener(this, 180, -1, -1);
-		
+		cr.setHorizontalAccuracy(20); // accurate to 20 meters horizontally
+		// cr.setVerticalAccuracy(20); DO NOT add this line, it causes the software not to work!
+
+		lp = LocationProvider.getInstance(cr); // Now get an instance of the
+
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
@@ -45,12 +45,32 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 
 	}
 
+	private void initApp() {
+		display = Display.getDisplay(this);
+
+		form = new Form("GPS to ITM");
+		form.append("Welcome !\n");
+		initiateCommands();
+
+		display.setCurrent(form);
+
+		form.setCommandListener(this);
+
+		if (lp == null) {
+			form.append("No location provider. This is a problem.");
+		} else {
+
+			lp.setLocationListener(this, 180, -1, -1); // Notify us every 3
+														// minutes
+		}
+	}
+
 	protected void startApp() throws MIDletStateChangeException {
 
-		// TODO should this be here, or in the ctor ?
-		display = Display.getDisplay(this);
-		display.setCurrent(form);
-		
+		if (display == null) {
+			initApp();
+
+		}
 
 	}
 
@@ -58,8 +78,8 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 		LatLon ortalLatlon;
 		try {
 			ortalLatlon = getCoordinates(location);
-
-			form.append(Convertor.numbersToLatLon(ortalLatlon));
+			String result = Convertor.numbersToLatLon(ortalLatlon);
+			form.append(result + "\n");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -75,9 +95,8 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 
 	}
 
-	public  LatLon getCoordinates(Location l) throws Exception {
+	public LatLon getCoordinates(Location l) throws Exception {
 
-		
 		Coordinates c = l.getQualifiedCoordinates();
 
 		if (c != null) {
@@ -95,30 +114,33 @@ public class myMIDlet extends MIDlet implements CommandListener , LocationListen
 	public void commandAction(Command c, Displayable d) {
 
 		if (c == exit) {
-		      try {
+			try {
 				destroyApp(true);
 			} catch (MIDletStateChangeException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		      notifyDestroyed();		}
+			notifyDestroyed();
+		}
 		if (c == about) {
-			
-			alTest = new Alert("About", "This inguines program was made by Yuval & Yagel Kohavi", null,
-                     AlertType.INFO);
-			display.setCurrent(alTest,form);
+
+			alTest = new Alert("About",
+					"This ingenious program was made by Yuval & Yagel Kohavi",
+					null, AlertType.INFO);
+			display.setCurrent(alTest, form);
 		}
 	}
 
-	public void locationUpdated(LocationProvider locationProvider, Location location) {
+	public void locationUpdated(LocationProvider locationProvider,
+			Location location) {
+		if (location != null && location.isValid())
+			updateDisplay(location);
 
-		
-		updateDisplay(location);
-		
 	}
 
-	public void providerStateChanged(LocationProvider locationProvider, int newState ) {
+	public void providerStateChanged(LocationProvider locationProvider,
+			int newState) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
