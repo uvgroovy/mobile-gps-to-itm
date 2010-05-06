@@ -7,34 +7,29 @@ public class Convertor {
 	 /**
 	  * Ellipsoid for GRS80 (The refernce ellipsoid of ITM
 	  * @see http://en.wikipedia.org/wiki/GRS80
-	  * @type JSITM.Ellipsoid
 	  */
 	 static Ellipsoid GRS80 = new Ellipsoid(6378137d, 6356752.31414d); 
 	 
 	 /**
 	  * Ellipsoid for WGS84 (Used by GPS)
 	  * @see http://en.wikipedia.org/wiki/WGS80
-	  * @type JSITM.Ellipsoid
 	  */
 	 static Ellipsoid WGS84 = new Ellipsoid(6378137, 6356752.314245);
 	 
 	 /**
 	  * Simple Translation from GRS80 to WGS84
 	  * @see http://spatialreference.org/ref/epsg/2039/
-	  * @type JSITM.Translation
 	  */
 	 static Translation GRS80toWGS84 = new Translation(-48, 55, 52); 
 	 
 	 /**
 	  * Translation back from WGS84 to GRS80
-	  * @type JSITM.Translation
 	  */
 	 static Translation WGS84toGRS80 = GRS80toWGS84.inverse();
 	 
 	 /**
 	  * ITM (Israel Transverse Mercator) Projection 
 	  * @see http://en.wikipedia.org/wiki/Israeli_Transverse_Mercator
-	  * @type JSITM.TM
 	  */
 	 static TM ITM = new TM( GRS80, 219529.58400, 626907.38999, 1.000006700000000, 31.734394, 35.204517);
 	 
@@ -57,7 +52,7 @@ public class Convertor {
 	 	
 	 	
 	 	int p = precision; 
-	 
+	
 	     if (p < 3) 
 	         p = 3;
 	     if (p > 6) 
