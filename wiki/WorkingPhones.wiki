@@ -1,4 +1,4 @@
-#Tested phone list
+#summary Tested phone list
 
 = טלפונים שבהם התוכנה נבדקה ועובדת =
 
