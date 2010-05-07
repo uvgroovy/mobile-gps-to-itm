@@ -38,13 +38,13 @@ public class Ellipsoid {
 
 	     double RootXYSqr = Math.sqrt( MathUtilies.pow(point.getX(), 2) + MathUtilies.pow(point.getY(), 2) );
 	     
-	     double radlat1 = aTan2 (point.getZ(), (RootXYSqr * (1 - this.e2)));
+	     double radlat1 = MathUtilies.aTan2(point.getZ(), (RootXYSqr * (1 - this.e2)));
 	     double radlat2;
 	     do {
 	    	 double sinRadlat1 = Math.sin(radlat1);
 	         double V = this.a / (Math.sqrt(1 - (this.e2 * (sinRadlat1 *sinRadlat1))));
 	         
-	          radlat2 = aTan2((point.getZ() + (this.e2 * V * (sinRadlat1))), RootXYSqr);
+	          radlat2 = MathUtilies.aTan2((point.getZ() + (this.e2 * V * (sinRadlat1))), RootXYSqr);
 	         if (Math.abs(radlat1 - radlat2) > 0.000000001) {
 	             radlat1 = radlat2;
 	         }
@@ -55,20 +55,12 @@ public class Ellipsoid {
 	     while (true);
 	     
 	     double lat = radlat2 * (180 / Math.PI);
-	     double lng = aTan2(point.getY(), point.getX()) * (180 / Math.PI);
+	     double lng = MathUtilies.aTan2(point.getY(), point.getX()) * (180 / Math.PI);
 	     
 	     return new LatLon(lat, lng);
 	}
 
-	/**
-	 * No aTam2 in j2me. if you use j2se change this to ues the default one.
-	 * @param y
-	 * @param x
-	 * @return
-	 */
-	 static private double aTan2(double y, double x) {
-		return mMath.atan2(y, x);
-	}
+
 	
 	  
 	 /**

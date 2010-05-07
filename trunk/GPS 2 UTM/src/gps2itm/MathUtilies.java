@@ -18,4 +18,13 @@ public class MathUtilies {
 		return sum;
 	}
 
+	/**
+	 * No aTam2 in j2me. if you use j2se change this to ues the default one.
+	 * @param y
+	 * @param x
+	 * @return
+	 */
+	 static public double aTan2(double y, double x) {
+		return mMath.atan2(y, x);
+	}
 }
