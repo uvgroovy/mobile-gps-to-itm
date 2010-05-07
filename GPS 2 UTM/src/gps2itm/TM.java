@@ -98,11 +98,10 @@ public class TM {
 	/**
 	 * Compute meridional arc
 	 * 
-	 * @private
 	 * @param {Number} radlat latitude of meridian in radians
 	 * @return {Number}
 	 */
-	public double Marc(double radlat) {
+	private double Marc(double radlat) {
 
 		return (this.bf0 * (((1 + this.n + ((5 / 4) * this.n2) + ((5 / 4) * this.n3)) * (radlat - this.radlat0))
 				- (((3 * this.n) + (3 * this.n2) + ((21 / 8) * this.n3))
@@ -117,11 +116,10 @@ public class TM {
 	
 	 /**
 	  * Returns the  initial value for Latitude in radians.
-	  * @private
-	  * @param {Number} y northings of point
-	  * @return {Number}
+	  * 
+	  * @param y northings of point
 	  */
-	public double InitialLat (double y)
+	private double InitialLat (double y)
 	{
 	   
 	     double radlat1 = ((y - this.n0) / this.af0) + this.radlat0;
