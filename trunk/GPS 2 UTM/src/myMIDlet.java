@@ -8,6 +8,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.StringItem;
 import javax.microedition.location.Coordinates;
 import javax.microedition.location.Criteria;
 import javax.microedition.location.Location;
@@ -22,9 +23,12 @@ public class myMIDlet extends MIDlet implements CommandListener,
 
 	Command exit, about;
 	Display display;
-	Form form;
+  	Form form;
 	LocationProvider lp;
 	Alert alTest;
+	
+	StringItem coordinates;
+	StringItem height;
 
 	public myMIDlet() throws LocationException {
 		Criteria cr = new Criteria();
@@ -33,6 +37,7 @@ public class myMIDlet extends MIDlet implements CommandListener,
 
 		lp = LocationProvider.getInstance(cr); // Now get an instance of the
 
+		initForm();
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
@@ -48,10 +53,6 @@ public class myMIDlet extends MIDlet implements CommandListener,
 	private void initApp() {
 		display = Display.getDisplay(this);
 
-		form = new Form("GPS to ITM");
-		form.append("Welcome !\n");
-		initiateCommands();
-
 		display.setCurrent(form);
 
 		form.setCommandListener(this);
@@ -63,6 +64,18 @@ public class myMIDlet extends MIDlet implements CommandListener,
 			lp.setLocationListener(this, 180, -1, -1); // Notify us every 3
 														// minutes
 		}
+	}
+
+	private void initForm() {
+		form = new Form("GPS to ITM");
+		form.append("Welcome! Data updates every 3 minutes or so..\n");
+	
+		coordinates = new StringItem("ITM:", "Please wait...");
+		height = new StringItem("Height:", "Please wait...");
+		
+		form.append(coordinates);
+		form.append(height);
+		initiateCommands();
 	}
 
 	protected void startApp() throws MIDletStateChangeException {
@@ -78,8 +91,8 @@ public class myMIDlet extends MIDlet implements CommandListener,
 		LatLon ortalLatlon;
 		try {
 			ortalLatlon = getCoordinates(location);
-			String result = Convertor.convertGpsToITM(ortalLatlon);
-			form.append(result + "\n");
+			coordinates.setText(Convertor.convertGpsToITM(ortalLatlon));
+			height.setText(location.getQualifiedCoordinates().getAltitude() + "m");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
